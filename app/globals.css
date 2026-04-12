@@ -1,24 +1,31 @@
+﻿/* ===== BODY ===== */
 body {
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f5f5;
+  color: #222;
 }
 
+/* ===== HEADER ===== */
 .header {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 🔥 THÊM DÒNG NÀY */
+  justify-content: space-between;
   padding: 15px 40px;
-  background: #111;
-  color: white;
+  background: #fff;
+  color: #222;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
 }
 
-/* LOGO - trái */
+/* LOGO */
 .logo {
   font-size: 24px;
   font-weight: bold;
 }
 
-/* MENU - GIỮA CHUẨN */
+/* ===== MENU ===== */
 .menu {
   position: absolute;
   left: 50%;
@@ -27,38 +34,56 @@ body {
   gap: 40px;
 }
 
-/* CART - phải */
-.cart {
-  cursor: pointer;
+/* LINK */
+.menu a {
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-/* MENU */
-.menu {
-  display: flex;
-  gap: 30px;
+/* HOVER */
+.menu a:hover,
+.menu-item span:hover {
+  color: #e53935;
 }
 
+/* ITEM */
 .menu-item {
   position: relative;
   cursor: pointer;
 }
 
-/* DROPDOWN */
+/* ===== DROPDOWN ===== */
 .dropdown {
   position: absolute;
-  top: 30px;
+  top: 35px;
   left: 0;
-  background: #111;
-  padding: 15px;
-  display: none;
+  background: #fff;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  min-width: 150px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.2s;
   z-index: 99999;
 }
 
 .menu-item:hover .dropdown {
-  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* CART */
+.dropdown p {
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.dropdown p:hover {
+  color: #e53935;
+}
+
+/* ===== CART ===== */
 .cart {
   position: relative;
   cursor: pointer;
@@ -68,33 +93,418 @@ body {
   position: absolute;
   top: -5px;
   right: -10px;
-  background: red;
+  background: #e53935;
+  color: white;
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
 }
 
-/* ALERT */
+/* ===== ALERT ===== */
 .alert {
-  background: #111;
-  color: #ccc;
+  background: #fff;
+  color: #666;
   text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 30px;
+}
+
+/* ===== CATEGORY SECTION ===== */
+.category-section {
+  background: #111;
+  padding: 50px 40px;
+  color: white;
+}
+
+/* TITLE */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.category-header h2 {
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+/* LIST */
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+/* CARD */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* IMAGE */
+.category-card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+/* HOVER ZOOM */
+.category-card:hover img {
+  transform: scale(1.08);
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 25px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.5),
+    transparent
+  );
+
+  display: flex;
+  align-items: center;
+}
+
+/* SHOW OVERLAY */
+.category-card:hover .overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TEXT */
+.overlay span {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+/* 🔥 HOVER CHỮ */
+.category-card:hover .overlay span {
+  color: #e53935;
+  transform: translateX(6px);
+}
+/* ===== SECTION ===== */
+.sale-section {
+  background: linear-gradient(180deg, #3b0f0f, #1a1a1a);
+  padding: 50px 40px;
+  color: white;
+}
+
+/* HEADER */
+.sale-header h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+/* LIST */
+.sale-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+/* CARD */
+.sale-card {
+  min-width: 220px;
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: 0.3s;
+}
+
+.sale-card:hover {
+  transform: translateY(-5px);
+}
+
+/* IMAGE */
+.sale-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  background: #fff;
+}
+
+/* BADGE */
+.sale-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e53935;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* INFO */
+.sale-info {
   padding: 10px;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 20px;
-  padding: 30px;
-}.menu a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
-.menu a:hover,
-.menu-item span:hover {
-  color: red;
+.sale-info h4 {
+  font-size: 14px;
+  margin: 5px 0;
 }
 
+/* SUB TEXT */
+.sale-info .sub {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* PRICE */
+.price {
+  margin-top: 5px;
+}
+
+.price .new {
+  color: #e53935;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.price .old {
+  text-decoration: line-through;
+  color: #777;
+}
+
+/* BUTTON */
+.sale-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  background: #111;
+  border: 1px solid #555;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sale-btn:hover {
+  background: #e53935;
+  border: none;
+}
+/* ===== BANNER ===== */
+.banner {
+  position: relative;
+  margin: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 100px;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 2;
+}
+
+.banner-content h1 {
+  font-size: 70px;
+  font-family: 'Brush Script MT', cursive;
+}
+
+.banner-content p {
+  font-size: 20px;
+  letter-spacing: 4px;
+}
+
+/* ===== FILTER ===== */
+.filter {
+  display: flex;
+  gap: 40px;
+  padding: 20px 40px;
+  background: #111;
+  color: #aaa;
+  font-size: 18px;
+}
+
+.filter span {
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.filter .active {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+/* ===== GRID (UPDATE) ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 🔥 giống Torano */
+  gap: 20px;
+  padding: 30px 40px;
+  background: #111;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #1a1a1a;
+  padding: 10px;
+  position: relative;
+  transition: 0.3s;
+  border: 1px solid #2a2a2a;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* IMAGE */
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: #fff;
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e53935;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+}
+
+/* INFO */
+.info {
+  padding: 10px;
+  color: white;
+}
+
+.info h4 {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* SUB */
+.info .sub {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* PRICE */
+.price {
+  margin-top: 5px;
+}
+
+.price .new {
+  color: #e53935;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.price .old {
+  text-decoration: line-through;
+  color: #777;
+}
+
+/* BUTTON */
+.card button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: #e53935;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  background: #000;
+}
+.sale-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.slider-btns button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: #1a1a1a;
+  color: white;
+  cursor: pointer;
+}
+
+/* ===== SALE LIST FIX CHUẨN ===== */
+.sale-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+/* Ẩn scrollbar */
+.sale-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sale-list::-webkit-scrollbar-thumb {
+  background: #e53935;
+  border-radius: 10px;
+}
+
+/* ===== CARD (QUAN TRỌNG NHẤT) ===== */
+.sale-card {
+  min-width: 220px;
+  flex-shrink: 0; /* 🔥 FIX LỖI KHÔNG SCROLL HẾT */
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: 0.3s;
+}

@@ -6,8 +6,11 @@ export default function Header({ cartCount, setIsOpen }) {
   return (
     <>
       <header className="header">
-        <h2>TORANO</h2>
 
+        {/* LOGO */}
+        <h2 className="logo">TORANO</h2>
+
+        {/* MENU */}
         <nav className="menu">
           <Link href="/">Trang chủ</Link>
 
@@ -31,14 +34,22 @@ export default function Header({ cartCount, setIsOpen }) {
           </div>
         </nav>
 
-        <div className="cart" onClick={() => setIsOpen(true)}>
+        {/* CART */}
+        <div
+          className="cart"
+          onClick={() => setIsOpen(true)}
+        >
           🛒
-          <span className="cart-badge">{cartCount}</span>
+          <span className="cart-badge">
+            {cartCount}
+          </span>
         </div>
+
       </header>
 
+      {/* ALERT */}
       <div className="alert">
-        CẢNH BÁO LỪA ĐẢO
+        ⚠️ CẢNH BÁO LỪA ĐẢO
       </div>
     </>
   )

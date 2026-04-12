@@ -7,7 +7,6 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
     0
   )
 
-  // 🔥 cập nhật + lưu localStorage
   const updateCart = (newCart) => {
     localStorage.setItem("cart", JSON.stringify(newCart))
     setCart(newCart)
@@ -41,46 +40,51 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
 
   return (
     <>
-      {/* 🔥 OVERLAY */}
+      {/* OVERLAY */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
+            inset: 0,
             background: "rgba(0,0,0,0.5)",
             zIndex: 9999
           }}
         />
       )}
 
-      {/* 🔥 SIDEBAR */}
+      {/* SIDEBAR */}
       <div style={{
         position: "fixed",
         top: 0,
         right: 0,
         width: "350px",
-        height: "100%",
+        height: "100vh",
         background: "#111",
         color: "#fff",
-        padding: "20px",
-        zIndex: 10000, // 🔥 CAO NHẤT
+        zIndex: 10000,
         transform: isOpen ? "translateX(0)" : "translateX(100%)",
-        transition: "0.3s"
+        transition: "0.3s",
+        display: "flex",
+        flexDirection: "column"   // 🔥 QUAN TRỌNG
       }}>
 
         {/* HEADER */}
-        <h2>Giỏ hàng</h2>
+        <div style={{ padding: "20px", borderBottom: "1px solid #333" }}>
+          <h2>Giỏ hàng</h2>
+        </div>
 
-        {/* EMPTY */}
-        {cart.length === 0 ? (
-          <p>Chưa có sản phẩm</p>
-        ) : (
-          <>
-            {cart.map(item => (
+        {/* LIST (SCROLL) */}
+        <div style={{
+          flex: 1,
+          overflowY: "auto",   // 🔥 SCROLL Ở ĐÂY
+          padding: "20px"
+        }}>
+
+          {cart.length === 0 ? (
+            <p>Chưa có sản phẩm</p>
+          ) : (
+            cart.map(item => (
               <div key={item.id} style={{
                 borderBottom: "1px solid #333",
                 padding: "10px 0"
@@ -89,8 +93,7 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
                 <h4>{item.name}</h4>
                 <p>{item.price}đ</p>
 
-                {/* 🔥 BUTTON FIX BUG CLICK */}
-                <div onClick={(e) => e.stopPropagation()}>
+                <div>
                   <button onClick={() => decrease(item.id)}>-</button>
 
                   <span style={{ margin: "0 10px" }}>
@@ -108,29 +111,32 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
                 </button>
 
               </div>
-            ))}
+            ))
+          )}
+        </div>
 
-            <h3 style={{ marginTop: "20px" }}>
-              Tổng: {total}đ
-            </h3>
-          </>
-        )}
+        {/* FOOTER (CỐ ĐỊNH) */}
+        <div style={{
+          padding: "20px",
+          borderTop: "1px solid #333"
+        }}>
+          <h3>Tổng: {total}đ</h3>
 
-        {/* 🔥 NÚT ĐÓNG */}
-        <button
-          onClick={() => setIsOpen(false)}
-          style={{
-            marginTop: "20px",
-            padding: "10px",
-            width: "100%",
-            background: "red",
-            color: "#fff",
-            border: "none",
-            cursor: "pointer"
-          }}
-        >
-          Đóng
-        </button>
+          <button
+            onClick={() => setIsOpen(false)}
+            style={{
+              marginTop: "10px",
+              padding: "10px",
+              width: "100%",
+              background: "red",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer"
+            }}
+          >
+            Đóng
+          </button>
+        </div>
 
       </div>
     </>

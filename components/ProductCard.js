@@ -9,16 +9,16 @@ export default function ProductCard({ product, addToCart }) {
         overflow: "hidden",
         transition: "0.3s",
         cursor: "pointer",
-        background: "#fff",   // 🔥 FIX
-        color: "#000"         // 🔥 FIX
+        background: "#fff",
+        color: "#000"
       }}
 
-      onMouseEnter={e => {
+      onMouseEnter={(e) => {
         e.currentTarget.style.transform = "scale(1.03)"
         e.currentTarget.style.boxShadow = "0 5px 20px rgba(0,0,0,0.2)"
       }}
 
-      onMouseLeave={e => {
+      onMouseLeave={(e) => {
         e.currentTarget.style.transform = "scale(1)"
         e.currentTarget.style.boxShadow = "none"
       }}
@@ -35,8 +35,10 @@ export default function ProductCard({ product, addToCart }) {
       >
         <img
           src={product.image}
+          alt={product.name}
           style={{
             maxHeight: "100%",
+            maxWidth: "100%",
             objectFit: "contain"
           }}
         />
@@ -44,15 +46,17 @@ export default function ProductCard({ product, addToCart }) {
 
       {/* CONTENT */}
       <div style={{ padding: "12px" }}>
-        <h3 style={{ fontSize: "16px" }}>
+        <h3 style={{ fontSize: "16px", margin: 0 }}>
           {product.name}
         </h3>
 
-        <p style={{
-          color: "red",
-          fontWeight: "bold",
-          marginTop: "5px"
-        }}>
+        <p
+          style={{
+            color: "#e53935",
+            fontWeight: "bold",
+            marginTop: "5px"
+          }}
+        >
           {product.price}đ
         </p>
 
@@ -62,7 +66,7 @@ export default function ProductCard({ product, addToCart }) {
           style={{
             width: "100%",
             padding: "10px",
-            background: "black",
+            background: "#e53935", // ✅ FIX dấu phẩy
             color: "white",
             border: "none",
             marginTop: "10px",
@@ -70,12 +74,12 @@ export default function ProductCard({ product, addToCart }) {
             transition: "0.3s"
           }}
 
-          onMouseEnter={e => {
-            e.target.style.background = "#333"
+          onMouseEnter={(e) => {
+            e.target.style.background = "#c62828"
           }}
 
-          onMouseLeave={e => {
-            e.target.style.background = "black"
+          onMouseLeave={(e) => {
+            e.target.style.background = "#e53935"
           }}
         >
           Thêm vào giỏ
