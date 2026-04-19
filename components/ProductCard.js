@@ -1,6 +1,10 @@
 "use client"
 
 export default function ProductCard({ product, addToCart }) {
+  const discountedPrice = product.sale 
+    ? product.price * (1 - product.sale / 100) 
+    : product.price;
+
   return (
     <div
       style={{
@@ -57,7 +61,18 @@ export default function ProductCard({ product, addToCart }) {
             marginTop: "5px"
           }}
         >
-          {product.price}đ
+          {discountedPrice.toLocaleString()}đ
+          {product.sale > 0 && (
+            <span style={{ 
+              color: "#999", 
+              textDecoration: "line-through", 
+              fontSize: "13px",
+              marginLeft: "8px",
+              fontWeight: "normal"
+            }}>
+              {product.price.toLocaleString()}đ
+            </span>
+          )}
         </p>
 
         {/* BUTTON */}

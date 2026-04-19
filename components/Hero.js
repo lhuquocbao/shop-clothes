@@ -8,7 +8,7 @@ const images = [
   "/images/anhnen3.jpg"
 ]
 
-export default function HeroSlider() {
+export default function Hero() {
   const [index, setIndex] = useState(0)
 
   // AUTO SLIDE

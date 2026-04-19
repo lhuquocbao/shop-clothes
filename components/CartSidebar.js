@@ -1,9 +1,22 @@
 "use client"
 
-export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
+import { useEffect, useState } from "react"
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+export default function CartSidebar({ cart = [], setCart, isOpen, setIsOpen }) {
+  const [isClient, setIsClient] = useState(false)
+
+  // Đảm bảo localStorage chỉ chạy trên trình duyệt để tránh lỗi Hydration
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const total = (cart || []).reduce(
+    (sum, item) => {
+      const discountedPrice = item.sale 
+        ? item.price * (1 - item.sale / 100) 
+        : item.price;
+      return sum + discountedPrice * item.quantity;
+    },
     0
   )
 
@@ -11,6 +24,8 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
     localStorage.setItem("cart", JSON.stringify(newCart))
     setCart(newCart)
   }
+
+  if (!isClient) return null; // Không render gì trên server để tránh lỗi lệch cấu trúc
 
   const increase = (id) => {
     const newCart = cart.map(item =>
@@ -91,7 +106,13 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
               }}>
 
                 <h4>{item.name}</h4>
-                <p>{item.price}đ</p>
+                <p>
+                  {item.sale > 0 ? (
+                    <span>{(item.price * (1 - item.sale / 100)).toLocaleString()}đ</span>
+                  ) : (
+                    <span>{item.price.toLocaleString()}đ</span>
+                  )}
+                </p>
 
                 <div>
                   <button onClick={() => decrease(item.id)}>-</button>
@@ -120,7 +141,7 @@ export default function CartSidebar({ cart, setCart, isOpen, setIsOpen }) {
           padding: "20px",
           borderTop: "1px solid #333"
         }}>
-          <h3>Tổng: {total}đ</h3>
+          <h3>Tổng: {total.toLocaleString()}đ</h3>
 
           <button
             onClick={() => setIsOpen(false)}
